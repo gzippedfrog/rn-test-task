@@ -1,33 +1,44 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import { useSelector } from "react-redux";
-import { selectUserById } from "../store/slices/usersSlice";
+import { useContext } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
 
-export default function Post({ post, style }) {
-    const user = useSelector(selectUserById(post.userId));
+import ScreenContext from "../context/screenContext";
+
+import colors from "../styles/colors";
+
+export default function Post({ post }) {
+    const { isTablet } = useContext(ScreenContext);
 
     return (
-        <View style={[styles.post, style]}>
-            <Text style={styles.text}>Author: {user.name}</Text>
-            <Text style={styles.text}>Company: {user.company.name}</Text>
+        <View style={[styles.post, styles.border]}>
+            {isTablet && (
+                <Image style={styles.image} source={{ uri: post.photoUrl }} />
+            )}
+            <Text style={styles.text}>Author: {post.userName}</Text>
+            <Text style={styles.text}>Company: {post.userCompany}</Text>
             <Text style={styles.text}>Title: {post.title}</Text>
+            <Text style={styles.text}>{post.body}</Text>
         </View>
     );
 }
 
-const BlueWater = "#27569C";
-
 const styles = StyleSheet.create({
     post: {
-        borderColor: BlueWater,
-        borderWidth: 5,
-        borderRadius: 10,
-        padding: 17,
-        marginTop: 10,
+        padding: 16,
+        margin: 8,
+        flex: 1,
     },
     text: {
         fontSize: 16,
         fontWeight: "bold",
-        marginBottom: 17,
+        marginTop: 16,
+    },
+    image: {
+        width: 150,
+        height: 150,
+    },
+    border: {
+        borderColor: colors.blueWater,
+        borderWidth: 5,
+        borderRadius: 10,
     },
 });

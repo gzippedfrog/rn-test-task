@@ -1,8 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import colors from "../styles/colors";
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: "#E4B062",
+        backgroundColor: colors.cream,
         borderRadius: 10,
         padding: 10,
     },

@@ -1,33 +1,40 @@
-import { useEffect } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { useContext, useEffect } from "react";
+import { FlatList, StyleSheet } from "react-native";
+
 import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "../store/slices/postsSlice";
+
+import ScreenContext from "../context/screenContext";
 
 import Post from "../components/Post";
 
-import { fetchPosts } from "../store/slices/postsSlice";
-import { fetchUsers } from "../store/slices/usersSlice";
-
 export default function HomeScreen() {
+    const { isTablet } = useContext(ScreenContext);
+
     const posts = useSelector((state) => state.posts.items);
-    const users = useSelector((state) => state.users.items);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        !posts.length && dispatch(fetchPosts());
-        !users.length && dispatch(fetchUsers());
+        dispatch(fetchPosts());
     }, []);
 
     return (
-        <ScrollView style={styles.postsContainer}>
-            {!!(posts.length && users.length) &&
-                posts.map((post) => <Post post={post} key={post.id} />)}
-        </ScrollView>
+        !!posts.length && (
+            <FlatList
+                data={posts}
+                renderItem={({ item }) => <Post post={item} />}
+                keyExtractor={(item) => item.id}
+                horizontal={false}
+                numColumns={isTablet ? 2 : 1}
+                style={styles.list}
+            />
+        )
     );
 }
 
 const styles = StyleSheet.create({
-    postsContainer: {
-        padding: 15,
+    list: {
+        padding: 8,
     },
 });
