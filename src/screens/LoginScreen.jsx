@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
 import ScreenContext from "../context/screenContext";
 
@@ -9,11 +9,14 @@ export default function LoginScreen() {
     const { isTablet } = useContext(ScreenContext);
 
     return (
-        <View
-            style={[styles.formContainer, isTablet && styles.formContainerWide]}
+        <ScrollView
+            contentContainerStyle={[
+                isTablet && styles.formContainerWide,
+                styles.formContainer,
+            ]}
         >
             <LoginForm />
-        </View>
+        </ScrollView>
     );
 }
 

@@ -1,14 +1,14 @@
+import { useContext } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { Formik } from "formik";
 
 import { useDispatch } from "react-redux";
 import { signIn } from "../store/slices/authSlice";
+import ScreenContext from "../context/screenContext";
 
 import Button from "../components/Button";
 
 import colors from "../styles/colors";
-import { useContext } from "react";
-import ScreenContext from "../context/screenContext";
 
 const initialValues = { email: "", password: "" };
 
@@ -24,7 +24,7 @@ function validate(values) {
         errors.password = "Required";
     }
 
-    if (email !== "foo@bar.com" || password !== "123") {
+    if (email !== "F" || password !== "1") {
         errors.common = "Incorrect email or password";
     }
 

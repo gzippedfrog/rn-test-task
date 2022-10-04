@@ -1,7 +1,9 @@
 import { TouchableOpacity } from "react-native";
+
 import { useDispatch } from "react-redux";
-import SignOutIcon from "./icons/SignOutIcon";
 import { signOut } from "../store/slices/authSlice";
+
+import SignOutIcon from "./icons/SignOutIcon";
 
 export default function SignOutButton() {
     const dispatch = useDispatch();

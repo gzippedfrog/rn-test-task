@@ -9,7 +9,7 @@ export default function Post({ post }) {
     const { isTablet } = useContext(ScreenContext);
 
     return (
-        <View style={[styles.post, styles.border]}>
+        <View style={styles.post}>
             {isTablet && (
                 <Image style={styles.image} source={{ uri: post.photoUrl }} />
             )}
@@ -26,19 +26,17 @@ const styles = StyleSheet.create({
         padding: 16,
         margin: 8,
         flex: 1,
-    },
-    text: {
-        fontSize: 16,
-        fontWeight: "bold",
-        marginTop: 16,
+        borderColor: colors.blueWater,
+        borderWidth: 5,
+        borderRadius: 10,
     },
     image: {
         width: 150,
         height: 150,
     },
-    border: {
-        borderColor: colors.blueWater,
-        borderWidth: 5,
-        borderRadius: 10,
+    text: {
+        fontSize: 16,
+        fontWeight: "bold",
+        marginTop: 16,
     },
 });

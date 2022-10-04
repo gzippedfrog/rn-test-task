@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_ENDPOINT = "https://jsonplaceholder.typicode.com";
-
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
+    const API_ENDPOINT = "https://jsonplaceholder.typicode.com";
     const { data: users } = await axios.get(`${API_ENDPOINT}/users`);
+
     const posts = [];
 
     for (const user of users) {
@@ -16,8 +16,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
             axios.get(photoUrl),
         ]);
 
-        const post = res[0].data[0];
-        const photo = res[1].data[0];
+        const [post, photo] = res.map((res) => res.data[0]);
 
         post.userName = user.name;
         post.userCompany = user.company.name;
@@ -30,10 +29,16 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 
 export const postsSlice = createSlice({
     name: "posts",
-    initialState: { items: [] },
+    initialState: {
+        items: [],
+        error: null,
+    },
     extraReducers: {
         [fetchPosts.fulfilled]: (state, action) => {
             state.items = action.payload;
+        },
+        [fetchPosts.rejected]: (state, action) => {
+            state.error = action.error.message;
         },
     },
 });

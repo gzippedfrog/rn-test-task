@@ -1,5 +1,16 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+
 import colors from "../styles/colors";
+
+const Button = ({ handleSubmit, title, style }) => (
+    <TouchableOpacity
+        onPress={handleSubmit}
+        title={title}
+        style={[styles.button, style]}
+    >
+        <Text style={styles.buttonText}>Submit</Text>
+    </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
     button: {
@@ -13,15 +24,5 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
 });
-
-const Button = ({ handleSubmit, title, style }) => (
-    <TouchableOpacity
-        onPress={handleSubmit}
-        title={title}
-        style={[styles.button, style]}
-    >
-        <Text style={styles.buttonText}>Submit</Text>
-    </TouchableOpacity>
-);
 
 export default Button;
