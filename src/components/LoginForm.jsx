@@ -24,7 +24,7 @@ function validate(values) {
         errors.password = "Required";
     }
 
-    if (email !== "F" || password !== "1") {
+    if (email !== "foo@bar.com" || password !== "123") {
         errors.common = "Incorrect email or password";
     }
 
